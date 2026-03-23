@@ -1,26 +1,184 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ─── Scrollbar utility ───────────────────────────────────────────────────── */
+@layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
   }
 }
 
+/* ─── Dark tokens (always active — site is permanently dark) ─────────────── */
+:root {
+  --bg-page:    #0C0C0E;
+  --bg-surface: #141416;
+  --bg-overlay: #1C1C1F;
+  --bg-subtle:  #111113;
+  --bg-hover:   #1B1B1F;
+
+  --border-line:        #222228;
+  --border-line-sub:    #1C1C20;
+  --border-line-strong: #2E2E35;
+
+  --t1: #ECECF1;
+  --t2: #9595A4;
+  --t3: #636370;
+  --t4: #46464F;
+
+  --accent:       #4A8FE0;
+  --accent-hover: #3A7FD0;
+  --accent-sub:   rgba(74, 143, 224, 0.1);
+  --accent-text:  #7AB3F4;
+
+  --success:     #34D399;
+  --success-sub: rgba(52, 211, 153, 0.08);
+  --warning:     #FBBF24;
+  --warning-sub: rgba(251, 191, 36, 0.08);
+  --error:       #F87171;
+  --error-sub:   rgba(248, 113, 113, 0.08);
+  --purple:      #A78BFA;
+  --purple-sub:  rgba(167, 139, 250, 0.08);
+  --teal:        #2DD4BF;
+  --teal-sub:    rgba(45, 212, 191, 0.08);
+  --orange:      #FB923C;
+  --orange-sub:  rgba(251, 146, 60, 0.08);
+
+  --shadow-card:       0 1px 4px rgba(0, 0, 0, 0.5);
+  --shadow-card-hover: 0 2px 12px rgba(0, 0, 0, 0.6);
+}
+
+/* ─── Tailwind v4 theme mapping ───────────────────────────────────────────── */
+@theme inline {
+  --color-page:         var(--bg-page);
+  --color-surface:      var(--bg-surface);
+  --color-overlay:      var(--bg-overlay);
+  --color-subtle:       var(--bg-subtle);
+  --color-hover:        var(--bg-hover);
+  --color-line:         var(--border-line);
+  --color-line-sub:     var(--border-line-sub);
+  --color-line-strong:  var(--border-line-strong);
+  --color-t1:           var(--t1);
+  --color-t2:           var(--t2);
+  --color-t3:           var(--t3);
+  --color-t4:           var(--t4);
+  --color-accent:       var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-sub:   var(--accent-sub);
+  --color-accent-text:  var(--accent-text);
+  --color-success:      var(--success);
+  --color-success-sub:  var(--success-sub);
+  --color-warning:      var(--warning);
+  --color-warning-sub:  var(--warning-sub);
+  --color-error:        var(--error);
+  --color-error-sub:    var(--error-sub);
+  --color-purple:       var(--purple);
+  --color-purple-sub:   var(--purple-sub);
+  --color-teal:         var(--teal);
+  --color-teal-sub:     var(--teal-sub);
+  --color-orange:       var(--orange);
+  --color-orange-sub:   var(--orange-sub);
+
+  --font-sans: var(--font-geist-sans), system-ui, sans-serif;
+
+  --width-site: 1200px;
+
+  --animate-fade-in:        fade-in 0.2s ease-out forwards;
+  --animate-step-in:        step-in 0.28s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  --animate-pulse-dot:      pulse-dot 1.4s ease-in-out infinite;
+  --animate-gradient-shift: gradient-shift 6s ease infinite;
+  --animate-float:          float 4s ease-in-out infinite;
+}
+
+/* ─── Base ────────────────────────────────────────────────────────────────── */
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--bg-page);
+  color: var(--t1);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+::selection {
+  background-color: rgba(74, 143, 224, 0.3);
+  color: #ECECF1;
+}
+
+/* ─── Keyframes ───────────────────────────────────────────────────────────── */
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes step-in {
+  from { opacity: 0; transform: translateX(24px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.3; }
+}
+
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50%       { background-position: 100% 50%; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-8px); }
+}
+
+@property --border-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes spin-border {
+  to { --border-angle: 360deg; }
+}
+
+/* ─── Reusable CSS utility classes (mirrors autonoms-app) ────────────────── */
+.animate-fade-in   { animation: fade-in 0.2s ease-out forwards; }
+.animate-step-in   { animation: step-in 0.28s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+.animate-pulse-dot { animation: pulse-dot 1.4s ease-in-out infinite; }
+
+.gradient-border-wrap {
+  --border-angle: 0deg;
+  padding: 1.5px;
+  border-radius: 16px;
+  overflow: hidden;
+  background: conic-gradient(
+    from var(--border-angle),
+    transparent 0deg,
+    rgb(16, 170, 82) 60deg,
+    rgb(49, 177, 160) 160deg,
+    rgb(54, 124, 255) 240deg,
+    transparent 300deg
+  );
+  animation: spin-border 4s linear infinite;
+}
+
+.gradient-heading {
+  background: linear-gradient(135deg, rgb(54, 124, 255) 0%, rgb(49, 177, 160) 70%, rgb(46, 204, 113) 90%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: inline-block;
+}
+
+.banner-gradient {
+  background: linear-gradient(135deg, #0D1525 0%, #0B1A18 60%, #0C1A10 100%);
+}
+
+.banner-gradient-animated {
+  background: linear-gradient(135deg, #0D1525 0%, #0B1A18 40%, #0C1A10 60%, #0D1525 100%);
+  background-size: 200% 200%;
+  animation: gradient-shift 6s ease infinite;
 }
