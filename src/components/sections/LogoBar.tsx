@@ -1,47 +1,51 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { staggerContainer, fadeUp, viewportOnce } from "@/lib/animations";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
 
-// Text logos as placeholder — replace with actual SVG files in /public/logos/
 const logos = [
   "Flutterwave",
   "Paystack",
   "Moniepoint",
   "Kuda",
   "PiggyVest",
+  "Cowrywise",
+  "Stears",
+  "Risevest",
 ];
 
 export function LogoBar() {
   return (
-    <SectionWrapper className="py-12 md:py-14 border-t border-b border-line-sub">
-      <motion.div
-        variants={staggerContainer}
-        initial="hidden"
-        whileInView="visible"
-        viewport={viewportOnce}
-        className="flex flex-col items-center gap-8"
-      >
-        <motion.p
-          variants={fadeUp}
-          className="text-xs font-semibold uppercase tracking-widest text-t4"
-        >
+    <SectionWrapper className="py-10 md:py-12 overflow-hidden">
+      <div className="flex flex-col items-center gap-7">
+        <p className="text-xs font-semibold uppercase tracking-widest text-t4">
           Used by teams at
-        </motion.p>
+        </p>
 
-        <div className="flex flex-wrap justify-center items-center gap-10 md:gap-16">
-          {logos.map((name) => (
-            <motion.span
-              key={name}
-              variants={fadeUp}
-              className="text-sm font-semibold text-t4 opacity-40 hover:opacity-70 transition-opacity duration-300 tracking-wide"
-            >
-              {name}
-            </motion.span>
-          ))}
+        {/* Marquee */}
+        <div
+          className="relative w-full overflow-hidden"
+          style={{
+            maskImage:
+              "linear-gradient(to right, transparent, black 12%, black 88%, transparent)",
+            WebkitMaskImage:
+              "linear-gradient(to right, transparent, black 12%, black 88%, transparent)",
+          }}
+        >
+          <div
+            className="flex w-max gap-16"
+            style={{ animation: "marquee 22s linear infinite" }}
+          >
+            {[...logos, ...logos].map((name, i) => (
+              <span
+                key={i}
+                className="text font-semibold text-t3 opacity-35 hover:opacity-60 transition-opacity duration-300 tracking-wide whitespace-nowrap cursor-default"
+              >
+                {name}
+              </span>
+            ))}
+          </div>
         </div>
-      </motion.div>
+      </div>
     </SectionWrapper>
   );
 }

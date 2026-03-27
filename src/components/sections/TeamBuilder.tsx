@@ -217,7 +217,10 @@ export function TeamBuilder() {
           viewport={viewportOnce}
           className="flex flex-col gap-5 md:sticky md:top-28"
         >
-          <motion.h2 variants={fadeUp} className="text-[1.625rem] md:text-3xl font-semibold text-t1 leading-tight">
+          <motion.p variants={fadeUp} className="text-xs font-semibold uppercase tracking-widest text-accent-text">
+            Team Builder
+          </motion.p>
+          <motion.h2 variants={fadeUp} className="text-[1.75rem] md:text-3xl font-semibold text-t1 leading-tight">
             Tell us what you need.{" "}
             <span className="text-t3">We&apos;ll build your team.</span>
           </motion.h2>

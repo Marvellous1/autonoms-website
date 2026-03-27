@@ -12,10 +12,12 @@ export function SectionWrapper({
   as?: "section" | "div";
 }) {
   return (
-    <Tag id={id} className={cn("w-full px-6 md:px-10 py-20 md:py-28", className)}>
-      <div className="mx-auto w-full" style={{ maxWidth: "var(--width-site)" }}>
-        {children}
-      </div>
+    <Tag
+      id={id}
+      className={cn("w-full px-6 md:px-10 py-20 md:py-28 mx-auto", className)}
+      style={{ maxWidth: "var(--width-site)" }}
+    >
+      {children}
     </Tag>
   );
 }

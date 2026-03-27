@@ -91,9 +91,12 @@ export function InboxCallout() {
           viewport={viewportOnce}
           className="flex flex-col gap-6"
         >
+          <motion.p variants={fadeUp} className="text-xs font-semibold uppercase tracking-widest text-accent-text">
+            Inbox
+          </motion.p>
           <motion.h2
             variants={slideFromLeft}
-            className="text-2xl md:text-3xl font-semibold text-t1 leading-tight"
+            className="text-[1.75rem] md:text-3xl font-semibold text-t1 leading-tight"
           >
             Talk to your team.{" "}
             <span className="text-t3">Get answers instantly.</span>

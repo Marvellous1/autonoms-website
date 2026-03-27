@@ -10,23 +10,16 @@ const LINE_ONE = ["The", "team", "that"];
 const LINE_TWO = ["never", "stops", "working."];
 
 const tabs = [
-  { id: "agent-teams", label: "Agent Teams" },
-  { id: "live-activity", label: "Live Activity" },
-  { id: "human-in-loop", label: "Human in Loop" },
-  { id: "structured-results", label: "Structured Results" },
+  { id: "workspace-overview", label: "Workspace Overview", image: "/hero-section/workspace.png" },
+  { id: "data-hub", label: "Data Hub", image: "/hero-section/data-tables.png" },
+  { id: "direct-messaging", label: "Direct Messaging", image: "/hero-section/message.png" },
+  { id: "ai-team", label: "AI Team", image: "/hero-section/teams.png" },
 ];
 
-// Placeholder video poster colours (replace with real screenshots)
-const tabColors: Record<string, string> = {
-  "agent-teams": "#0f1a2e",
-  "live-activity": "#0a1a18",
-  "human-in-loop": "#1a150a",
-  "structured-results": "#0f0f1a",
-};
-
 function BrowserMockup({ activeTab }: { activeTab: string }) {
+  const tab = tabs.find((t) => t.id === activeTab);
   return (
-    <div className="relative rounded-xl border border-line overflow-hidden shadow-[0_0_80px_rgba(74,143,224,0.1)] bg-page">
+    <div className="relative rounded-xl border border-line overflow-hidden shadow-[0_0_80px_rgba(74,143,224,0.1)] bg-page mb-6">
       {/* Chrome bar */}
       <div className="bg-overlay border-b border-line h-9 flex items-center px-4 gap-2">
         <div className="w-3 h-3 rounded-full bg-line" />
@@ -35,44 +28,25 @@ function BrowserMockup({ activeTab }: { activeTab: string }) {
         <div className="mx-auto flex-1 max-w-xs h-5 rounded-md bg-subtle border border-line-sub" />
       </div>
       {/* Screen area */}
-      <div
-        className="relative aspect-video overflow-hidden transition-colors duration-500"
-        style={{ backgroundColor: tabColors[activeTab] }}
-      >
-        {/* Placeholder content showing app UI mockup */}
-        <div className="absolute inset-0 flex flex-col">
-          {/* Sidebar strip */}
-          <div className="flex h-full">
-            <div className="w-14 bg-page border-r border-line flex flex-col items-center py-4 gap-3">
-              {[...Array(5)].map((_, i) => (
-                <div key={i} className="w-8 h-8 rounded-lg bg-surface" />
-              ))}
-            </div>
-            {/* Main content area */}
-            <div className="flex-1 p-4 flex flex-col gap-3">
-              <div className="h-8 w-48 rounded-lg bg-surface/60" />
-              <div className="grid grid-cols-3 gap-3 mt-1">
-                {[...Array(3)].map((_, i) => (
-                  <div key={i} className="h-24 rounded-xl bg-surface/40 border border-line/40" />
-                ))}
-              </div>
-              <div className="flex-1 rounded-xl bg-surface/40 border border-line/40 mt-1" />
-            </div>
-          </div>
-        </div>
-        {/* Active tab label overlay */}
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2">
-          <span className="px-3 py-1.5 rounded-full bg-accent-sub border border-accent/30 text-accent-text text-xs font-medium">
-            {tabs.find((t) => t.id === activeTab)?.label}
-          </span>
-        </div>
+      <div className="relative aspect-video overflow-hidden bg-page">
+        {tabs.map((t) => (
+          <img
+            key={t.id}
+            src={t.image}
+            alt={t.label}
+            className={cn(
+              "absolute inset-0 w-full h-full object-cover object-top transition-opacity duration-500",
+              t.id === activeTab ? "opacity-100" : "opacity-0"
+            )}
+          />
+        ))}
       </div>
     </div>
   );
 }
 
 export function Hero() {
-  const [activeTab, setActiveTab] = useState(tabs[0].id);
+  const [activeTab, setActiveTab] = useState<string>(tabs[0].id);
   const [progress, setProgress] = useState(0);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
@@ -113,8 +87,6 @@ export function Hero() {
     setActiveTab(id);
   };
 
-  const words = [...LINE_ONE, ...LINE_TWO];
-
   return (
     <section className="relative w-full min-h-screen flex flex-col overflow-hidden">
       {/* Ambient background glow */}
@@ -124,7 +96,7 @@ export function Hero() {
       </div>
 
       {/* Hero text */}
-      <div className="relative z-10 flex flex-col items-center text-center px-6 md:px-10 pt-40 pb-16">
+      <div className="relative z-10 flex flex-col items-center text-center px-6 md:px-10 pt-40 pb-10">
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -188,21 +160,12 @@ export function Hero() {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.7 }}
-          className="flex items-center gap-4 mb-10"
+          className="flex items-center gap-4 mb-0"
         >
           <Button size="lg">Get Started →</Button>
           <Button size="lg" variant="ghost">See it in action</Button>
         </motion.div>
 
-        {/* Social proof */}
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.9 }}
-          className="text-sm text-t4"
-        >
-          Trusted by teams at Flutterwave, Paystack, and 40+ companies
-        </motion.p>
       </div>
 
       {/* Product showcase */}
@@ -213,6 +176,10 @@ export function Hero() {
         className="relative z-10 w-full px-6 md:px-10 pb-0"
         style={{ maxWidth: "var(--width-site)", margin: "0 auto" }}
       >
+
+        {/* Browser mockup */}
+        <BrowserMockup activeTab={activeTab} />
+
         {/* Tab strip */}
         <div className="flex justify-center mb-6">
           <div className="flex items-center gap-2 p-1 rounded-full bg-surface border border-line">
@@ -242,9 +209,6 @@ export function Hero() {
             })}
           </div>
         </div>
-
-        {/* Browser mockup */}
-        <BrowserMockup activeTab={activeTab} />
       </motion.div>
     </section>
   );
