@@ -96,7 +96,7 @@ export function InboxCallout() {
           </motion.p>
           <motion.h2
             variants={slideFromLeft}
-            className="text-[1.75rem] md:text-3xl font-semibold text-t1 leading-tight"
+            className="text-3xl md:text-4xl font-semibold text-t1 leading-tight"
           >
             Talk to your team.{" "}
             <span className="text-t3">Get answers instantly.</span>

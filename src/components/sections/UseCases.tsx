@@ -84,7 +84,7 @@ export function UseCases() {
         <motion.p variants={fadeUp} className="text-xs font-semibold uppercase tracking-widest text-accent-text mb-4">
           Use Cases
         </motion.p>
-        <motion.h2 variants={fadeUp} className="text-[1.75rem] md:text-3xl font-semibold text-t1 mb-4">
+        <motion.h2 variants={fadeUp} className="text-3xl md:text-4xl font-semibold text-t1 mb-4">
           Any team. Any workflow.
         </motion.h2>
         <motion.p variants={fadeUp} className="text-t2 text-lg max-w-xl mx-auto leading-relaxed">

@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import { motion } from "framer-motion";
 import {
   slideFromLeft,
@@ -10,29 +11,29 @@ import {
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
 /* ─── Feature rows data ──────────────────────────────────────────── */
 type FeatureRow = {
-  headline: string;
+  headline: React.ReactNode;
   body: string;
   image: string;
 };
 
 const features: FeatureRow[] = [
   {
-    headline: "Not just agents. A team.",
-    body: "Each agent has a role, a goal, and a live status. They coordinate, hand off tasks, and report progress — just like a real team.",
+    headline: <>Agents that work<br />as a team.</>,
+    body: "Your agents don't work in isolation. They pass context to each other, avoid duplication, and keep the whole workflow moving — without you having to manage any of it.",
     image: "/features/agents.png",
   },
   {
-    headline: "Watch your team work in real time.",
+    headline: "See every action your agents take, as it happens.",
     body: "Every action your agents take is logged live. Filter by agent, event type, or time. Know exactly what's happening at any moment.",
     image: "/features/activity.png",
   },
   {
-    headline: "A human always in your corner.",
+    headline: "When AI isn't enough, a real human steps in.",
     body: "Your dedicated Human Operator monitors your agents, handles edge cases, and communicates with your team when AI isn't enough. You see every message they send.",
     image: "/features/human.png",
   },
   {
-    headline: "Structured outputs, not scattered logs.",
+    headline: "Every result in one place, ready to use.",
     body: "Everything your agents produce lands in a clean, filterable table. Prospect profiles, emails sent, meetings booked — all in one place, ready to export.",
     image: "/features/outputs.png",
   },
@@ -73,7 +74,7 @@ export function Features() {
               <motion.div variants={screenshotEntry}>
                 <img
                   src={feature.image}
-                  alt={feature.headline}
+                  alt={typeof feature.headline === "string" ? feature.headline : ""}
                   className="w-full rounded-2xl border border-line shadow-[0_2px_40px_rgba(74,143,224,0.08)]"
                 />
               </motion.div>

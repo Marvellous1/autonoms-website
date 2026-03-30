@@ -49,7 +49,7 @@ export function Benefits() {
         viewport={viewportOnce}
         className="text-center mb-16"
       >
-        <motion.h2 variants={fadeUp} className="text-2xl md:text-3xl font-semibold text-t1 mb-4">
+        <motion.h2 variants={fadeUp} className="text-3xl md:text-4xl font-semibold text-t1 mb-4">
           Built for the way real teams work.
         </motion.h2>
         <motion.p variants={fadeUp} className="text-t2 text-lg max-w-lg mx-auto leading-relaxed">

@@ -6,18 +6,23 @@ import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 import { wordStagger, staggerContainer } from "@/lib/animations";
 
-const LINE_ONE = ["The", "team", "that"];
+const LINE_ONE = ["Your", "AI", "team", "that"];
 const LINE_TWO = ["never", "stops", "working."];
 
 const tabs = [
-  { id: "workspace-overview", label: "Workspace Overview", image: "/hero-section/workspace.png" },
-  { id: "data-hub", label: "Data Hub", image: "/hero-section/data-tables.png" },
-  { id: "direct-messaging", label: "Direct Messaging", image: "/hero-section/message.png" },
-  { id: "ai-team", label: "AI Team", image: "/hero-section/teams.png" },
+  { id: "workspace-overview", label: "Workspace Overview", image: "/hero-section/workspace.png", video: "https://res.cloudinary.com/vello/video/upload/v1774877779/Work_Overview_Comp_uhou25.mp4" },
+  { id: "data-hub", label: "Data Hub", image: "/hero-section/data-tables.png", video: null },
+  { id: "direct-messaging", label: "Direct Messaging", image: "/hero-section/message.png", video: null },
+  { id: "ai-team", label: "AI Team", image: "/hero-section/teams.png", video: null },
 ];
 
-function BrowserMockup({ activeTab }: { activeTab: string }) {
-  const tab = tabs.find((t) => t.id === activeTab);
+function BrowserMockup({
+  activeTab,
+  videoRef,
+}: {
+  activeTab: string;
+  videoRef: React.RefObject<HTMLVideoElement | null>;
+}) {
   return (
     <div className="relative rounded-xl border border-line overflow-hidden shadow-[0_0_80px_rgba(74,143,224,0.1)] bg-page mb-6">
       {/* Chrome bar */}
@@ -29,7 +34,19 @@ function BrowserMockup({ activeTab }: { activeTab: string }) {
       </div>
       {/* Screen area */}
       <div className="relative aspect-video overflow-hidden bg-page">
-        {tabs.map((t) => (
+        {/* Video — workspace overview */}
+        <video
+          ref={videoRef}
+          src="https://res.cloudinary.com/vello/video/upload/v1774877779/Work_Overview_Comp_uhou25.mp4"
+          muted
+          playsInline
+          className={cn(
+            "absolute inset-0 w-full h-full object-cover object-top transition-opacity duration-500",
+            activeTab === "workspace-overview" ? "opacity-100" : "opacity-0"
+          )}
+        />
+        {/* Images — all other tabs */}
+        {tabs.filter((t) => !t.video).map((t) => (
           <img
             key={t.id}
             src={t.image}
@@ -45,38 +62,65 @@ function BrowserMockup({ activeTab }: { activeTab: string }) {
   );
 }
 
+function advanceTab(current: string) {
+  const idx = tabs.findIndex((t) => t.id === current);
+  return tabs[(idx + 1) % tabs.length].id;
+}
+
 export function Hero() {
   const [activeTab, setActiveTab] = useState<string>(tabs[0].id);
   const [progress, setProgress] = useState(0);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
 
+  // Start smooth interval progress — uses video's actual duration for the video tab
   const startProgress = useCallback((tabId: string) => {
     setProgress(0);
     if (intervalRef.current) clearInterval(intervalRef.current);
-    const duration = 4000; // 4s per tab
-    const step = 100 / (duration / 50);
-    let current = 0;
-    intervalRef.current = setInterval(() => {
-      current += step;
-      if (current >= 100) {
-        clearInterval(intervalRef.current!);
-        setProgress(100);
-        setTimeout(() => {
-          setActiveTab((prev) => {
-            const idx = tabs.findIndex((t) => t.id === prev);
-            return tabs[(idx + 1) % tabs.length].id;
-          });
-        }, 100);
+
+    const video = videoRef.current;
+    const isVideoTab = tabId === "workspace-overview";
+
+    const run = (durationMs: number) => {
+      const step = 100 / (durationMs / 50);
+      let current = 0;
+      intervalRef.current = setInterval(() => {
+        current += step;
+        if (current >= 100) {
+          clearInterval(intervalRef.current!);
+          setProgress(100);
+          setTimeout(() => setActiveTab((prev) => advanceTab(prev)), 100);
+        } else {
+          setProgress(current);
+        }
+      }, 50);
+    };
+
+    if (isVideoTab && video) {
+      video.currentTime = 0;
+      video.play().catch(() => {});
+
+      // If duration already known, start immediately; otherwise wait for metadata
+      if (video.duration && isFinite(video.duration)) {
+        run(video.duration * 1000);
       } else {
-        setProgress(current);
+        const onMeta = () => {
+          run(video.duration * 1000);
+          video.removeEventListener("loadedmetadata", onMeta);
+        };
+        video.addEventListener("loadedmetadata", onMeta);
       }
-    }, 50);
+    } else {
+      if (isVideoTab && video) video.pause();
+      run(4000);
+    }
   }, []);
 
   useEffect(() => {
     startProgress(activeTab);
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current);
+      if (activeTab === "workspace-overview") videoRef.current?.pause();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeTab]);
@@ -178,7 +222,7 @@ export function Hero() {
       >
 
         {/* Browser mockup */}
-        <BrowserMockup activeTab={activeTab} />
+        <BrowserMockup activeTab={activeTab} videoRef={videoRef} />
 
         {/* Tab strip */}
         <div className="flex justify-center mb-6">
