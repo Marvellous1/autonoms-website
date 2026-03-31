@@ -10,7 +10,7 @@ const LINE_ONE = ["Your", "AI", "team", "that"];
 const LINE_TWO = ["never", "stops", "working."];
 
 const tabs = [
-  { id: "workspace-overview", label: "Workspace Overview", image: "/hero-section/workspace.png", video: "https://res.cloudinary.com/vello/video/upload/v1774877779/Work_Overview_Comp_uhou25.mp4" },
+  { id: "workspace-overview", label: "Workspace Overview", image: "/hero-section/workspace.png", video: "https://res.cloudinary.com/vello/video/upload/v1774942268/Work_Overview_Comp_3_nyhito.mp4" },
   { id: "data-hub", label: "Data Hub", image: "/hero-section/data-tables.png", video: null },
   { id: "direct-messaging", label: "Direct Messaging", image: "/hero-section/message.png", video: null },
   { id: "ai-team", label: "AI Team", image: "/hero-section/teams.png", video: null },
@@ -37,7 +37,7 @@ function BrowserMockup({
         {/* Video — workspace overview */}
         <video
           ref={videoRef}
-          src="https://res.cloudinary.com/vello/video/upload/v1774877779/Work_Overview_Comp_uhou25.mp4"
+          src="https://res.cloudinary.com/vello/video/upload/v1774942268/Work_Overview_Comp_3_nyhito.mp4"
           muted
           playsInline
           className={cn(
@@ -98,7 +98,7 @@ export function Hero() {
 
     if (isVideoTab && video) {
       video.currentTime = 0;
-      video.play().catch(() => {});
+      video.play().catch(() => { });
 
       // If duration already known, start immediately; otherwise wait for metadata
       if (video.duration && isFinite(video.duration)) {
