@@ -19,18 +19,18 @@ import { staggerContainer, fadeUp, cardItem, viewportOnce } from "@/lib/animatio
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
 
 const integrations = [
-  { name: "Gmail",       icon: Mail,            color: "text-orange",      bg: "bg-orange-sub" },
-  { name: "LinkedIn",    icon: Linkedin,        color: "text-accent-text", bg: "bg-accent-sub" },
-  { name: "Apollo",      icon: Search,          color: "text-purple",      bg: "bg-purple-sub" },
-  { name: "HubSpot",     icon: BarChart2,       color: "text-orange",      bg: "bg-orange-sub" },
-  { name: "Salesforce",  icon: Database,        color: "text-accent-text", bg: "bg-accent-sub" },
-  { name: "Slack",       icon: MessageSquare,   color: "text-purple",      bg: "bg-purple-sub" },
-  { name: "Twilio",      icon: Phone,           color: "text-teal",        bg: "bg-teal-sub" },
-  { name: "Google Sheets", icon: FileSpreadsheet, color: "text-success",   bg: "bg-success-sub" },
-  { name: "Calendly",    icon: Calendar,        color: "text-teal",        bg: "bg-teal-sub" },
-  { name: "Zapier",      icon: Webhook,         color: "text-warning",     bg: "bg-warning-sub" },
-  { name: "Airtable",    icon: Layers,          color: "text-purple",      bg: "bg-purple-sub" },
-  { name: "Any website", icon: Globe,           color: "text-t3",          bg: "bg-overlay" },
+  { name: "Gmail", icon: Mail, color: "text-orange", bg: "bg-orange-sub" },
+  { name: "LinkedIn", icon: Linkedin, color: "text-accent-text", bg: "bg-accent-sub" },
+  { name: "Apollo", icon: Search, color: "text-purple", bg: "bg-purple-sub" },
+  { name: "HubSpot", icon: BarChart2, color: "text-orange", bg: "bg-orange-sub" },
+  { name: "Salesforce", icon: Database, color: "text-accent-text", bg: "bg-accent-sub" },
+  { name: "Slack", icon: MessageSquare, color: "text-purple", bg: "bg-purple-sub" },
+  { name: "Twilio", icon: Phone, color: "text-teal", bg: "bg-teal-sub" },
+  { name: "Google Sheets", icon: FileSpreadsheet, color: "text-success", bg: "bg-success-sub" },
+  { name: "Calendly", icon: Calendar, color: "text-teal", bg: "bg-teal-sub" },
+  { name: "Zapier", icon: Webhook, color: "text-warning", bg: "bg-warning-sub" },
+  { name: "Airtable", icon: Layers, color: "text-purple", bg: "bg-purple-sub" },
+  { name: "Any website", icon: Globe, color: "text-t3", bg: "bg-overlay" },
 ];
 
 export function Integrations() {
@@ -88,7 +88,7 @@ export function Integrations() {
         viewport={viewportOnce}
         className="text-center text-sm text-t4 mt-8"
       >
-        + many more via API and Zapier
+        And 800 other tools
       </motion.p>
     </SectionWrapper>
   );

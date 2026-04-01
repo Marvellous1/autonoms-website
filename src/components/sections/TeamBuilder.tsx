@@ -62,14 +62,14 @@ function AgentCard({
       className="gradient-border-wrap"
     >
       <div className="rounded-[14px] bg-surface px-4 py-3 flex items-center gap-3">
-        <div className="w-8 h-8 rounded-full bg-accent-sub flex items-center justify-center flex-shrink-0">
+        <div className="w-8 h-8 rounded-full bg-accent-sub flex items-center justify-center shrink-0">
           <Bot size={15} className="text-accent-text" />
         </div>
         <div className="flex-1 min-w-0">
           <p className="text-sm font-semibold text-t1">{name}</p>
           <p className="text-xs text-t3 truncate">{role}</p>
         </div>
-        <span className="flex items-center gap-1 text-xs text-success flex-shrink-0">
+        <span className="flex items-center gap-1 text-xs text-success shrink-0">
           <span className="w-1.5 h-1.5 rounded-full bg-success animate-pulse-dot" />
           Active
         </span>
@@ -189,8 +189,7 @@ function WizardMockup() {
                 className="mt-3 p-3 rounded-xl bg-subtle border border-line-sub"
               >
                 <p className="text-xs text-t3 leading-relaxed">
-                  Based on your goal, we recommend a 4-agent SDR team targeting Series A SaaS
-                  founders. Estimated{" "}
+                  Recommended: a 4-agent SDR team. Estimated{" "}
                   <span className="text-success font-semibold">
                     15–20 qualified calls per month
                   </span>
@@ -225,9 +224,8 @@ export function TeamBuilder() {
             <span className="text-t3">We&apos;ll build your team.</span>
           </motion.h2>
           <motion.p variants={fadeUp} className="text-t2 text-lg leading-relaxed">
-            Answer a few questions about your goal and your business. Autonoms
-            analyses your needs and recommends the exact agents, tools, and
-            strategy to get you there.
+            Answer a few quick questions. Autonoms recommends the best agents,
+            tools, and approach for your goal.
           </motion.p>
           <motion.ul variants={fadeUp} className="flex flex-col gap-3 mt-2">
             {[
@@ -236,7 +234,7 @@ export function TeamBuilder() {
               "Adjust and iterate any time",
             ].map((point) => (
               <li key={point} className="flex items-center gap-2 text-sm text-t3">
-                <CheckCircle2 size={15} className="text-success flex-shrink-0" />
+                <CheckCircle2 size={15} className="text-success shrink-0" />
                 {point}
               </li>
             ))}
@@ -244,7 +242,7 @@ export function TeamBuilder() {
         </motion.div>
 
         {/* Right — wizard mockup */}
-        <div className="bg-surface border border-line rounded-2xl p-5 shadow-card-hover">
+        <div className="bg-surface border border-line rounded-3xl p-5 shadow-card-hover overflow-hidden">
           <div className="border-b border-line pb-3 mb-4 flex items-center gap-2">
             <div className="w-2 h-2 rounded-full bg-success animate-pulse-dot" />
             <p className="text-xs font-semibold text-t3 uppercase tracking-wider">

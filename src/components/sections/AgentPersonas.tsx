@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { staggerContainer, fadeUp, viewportOnce } from "@/lib/animations";
 import { cn } from "@/lib/utils";
+import { SectionWrapper } from "@/components/ui/SectionWrapper";
 
 const toolLabels: Record<string, string> = {
   apollo: "Apollo",
@@ -31,7 +32,7 @@ const teams = [
         imagePath: "https://ai-employee-bucket.s3.us-east-1.amazonaws.com/Ami.png",
         status: "active",
         description:
-          "Sources leads from Apollo.io using ICP filters, enriches contact data with verified emails and LinkedIn profiles, then imports deduplicated prospects into the pipeline — delivering 50–100 new prospects daily on autopilot.",
+          "Sources ICP-matched leads, enriches contact details, deduplicates, and imports prospects into your pipeline.",
         tools: ["apollo", "clearbit", "linkedin"],
       },
       {
@@ -41,7 +42,7 @@ const teams = [
         imagePath: "https://ai-employee-bucket.s3.us-east-1.amazonaws.com/AI+Employee-3.png",
         status: "active",
         description:
-          "Searches LinkedIn Sales Navigator for prospects, sends personalised connection requests within LinkedIn's daily policy, follows up with accepted connections, and books meetings directly through LinkedIn messaging.",
+          "Finds prospects on LinkedIn, sends compliant connection requests, follows up, and books meetings in DMs.",
         tools: ["linkedin", "apollo", "gmail"],
       },
       {
@@ -51,7 +52,7 @@ const teams = [
         imagePath: "https://ai-employee-bucket.s3.us-east-1.amazonaws.com/Chidi.png",
         status: "active",
         description:
-          "Runs deep-dive company research — business model, tech stack, pain points, and decision makers. Maintains and refines your ICP, gathers competitive intelligence, and provides personalisation context so every outreach message hits.",
+          "Researches accounts and decision makers, sharpens your ICP, and supplies personalization insights for outreach.",
         tools: ["linkedin", "apollo", "clearbit"],
       },
       {
@@ -61,7 +62,7 @@ const teams = [
         imagePath: "https://ai-employee-bucket.s3.us-east-1.amazonaws.com/Queen.png",
         status: "idle",
         description:
-          "Scores leads against ICP criteria — company size, industry, and decision-maker fit. Routes high-priority prospects to outreach, flags low-quality leads for discard, and promotes qualified leads to the next stage.",
+          "Scores leads against your ICP, routes high-fit prospects to outreach, and filters out low-quality leads.",
         tools: ["gmail", "hubspot"],
       },
       {
@@ -71,7 +72,7 @@ const teams = [
         imagePath: "https://ai-employee-bucket.s3.us-east-1.amazonaws.com/AI+Employee-3.png",
         status: "active",
         description:
-          "Runs cold email campaigns and multi-step follow-up sequences. Personalises messaging based on research, tracks opens, clicks, and replies, and coordinates timing with Tobi to avoid multi-channel conflicts.",
+          "Runs cold email sequences with smart follow-ups, personalization, and engagement tracking.",
         tools: ["gmail", "apollo", "clearbit"],
       },
       {
@@ -81,7 +82,7 @@ const teams = [
         imagePath: "https://ai-employee-bucket.s3.us-east-1.amazonaws.com/Femi.png",
         status: "active",
         description:
-          "Detects meeting bookings via Calendly, sends confirmation emails, and delivers day-before and 1-hour reminders. Tracks no-shows, reschedules automatically, and logs all meeting outcomes to the CRM.",
+          "Confirms bookings, sends reminders, handles reschedules/no-shows, and logs outcomes to your CRM.",
         tools: ["google-calendar", "calendly", "gmail"],
       },
       {
@@ -91,7 +92,7 @@ const teams = [
         imagePath: "https://ai-employee-bucket.s3.us-east-1.amazonaws.com/Marcus.png",
         status: "active",
         description:
-          "Maintains CRM contact records and syncs data between Autonoms and Google Sheets. Logs all sales activities, runs deduplication and data hygiene routines, and generates weekly CRM health reports.",
+          "Keeps your CRM clean and up to date: syncs records, logs activity, dedupes, and runs hygiene checks.",
         tools: ["google-calendar", "gmail", "hubspot"],
       },
       {
@@ -101,7 +102,7 @@ const teams = [
         imagePath: "https://ai-employee-bucket.s3.us-east-1.amazonaws.com/Jane.png",
         status: "idle",
         description:
-          "Finds missing email addresses, verifies phone numbers, and enriches contact profiles with social links and job history. Validates data accuracy before records enter active outreach.",
+          "Finds missing emails/phones, enriches profiles, and verifies data before outreach starts.",
         tools: ["apollo", "clearbit", "linkedin"],
       },
       {
@@ -111,7 +112,7 @@ const teams = [
         imagePath: "https://autonoms-os-spaces.sfo3.cdn.digitaloceanspaces.com/ai-team-avatars/Nia.png",
         status: "idle",
         description:
-          "Flexible SDR support agent that handles overflow tasks across the team — from prospect list building to outreach assistance. Steps in when other agents need extra capacity during high-volume periods.",
+          "Flexible SDR support for overflow work—list building, enrichment, and outreach assistance when volume spikes.",
         tools: ["apollo", "linkedin", "gmail"],
       },
     ],
@@ -130,7 +131,7 @@ const teams = [
         imagePath: "https://autonoms-os-spaces.sfo3.cdn.digitaloceanspaces.com/ai-team-avatars/Piper.png",
         status: "active",
         description:
-          "Manages prospect lifecycle stages from Prospect through to Opportunity. Scores engagement signals, promotes hot leads to Drake, and monitors pipeline velocity to flag bottlenecks before they stall revenue.",
+          "Moves prospects through stages, watches engagement signals, and flags bottlenecks before pipeline stalls.",
         tools: ["hubspot", "gmail"],
       },
       {
@@ -140,7 +141,7 @@ const teams = [
         imagePath: "https://autonoms-os-spaces.sfo3.cdn.digitaloceanspaces.com/ai-team-avatars/Drake.png",
         status: "active",
         description:
-          "Creates deals from qualified opportunities and tracks them through every stage — Discovery, Demo, Proposal, Negotiation, and Closed. Forecasts revenue and flags at-risk or stalled deals to the team.",
+          "Creates and tracks deals end-to-end, forecasts revenue, and flags at-risk opportunities.",
         tools: ["hubspot", "gmail"],
       },
       {
@@ -150,7 +151,7 @@ const teams = [
         imagePath: "https://autonoms-os-spaces.sfo3.cdn.digitaloceanspaces.com/ai-team-avatars/Atlas.png",
         status: "active",
         description:
-          "Logs all sales activities to the CRM in real time — every email, LinkedIn message, meeting, and note. Maintains a complete engagement timeline for every prospect, enabling accurate attribution and conversion analysis.",
+          "Logs every touchpoint to the CRM and maintains a clean engagement timeline for attribution and analysis.",
         tools: ["hubspot", "gmail", "linkedin"],
       },
       {
@@ -160,15 +161,15 @@ const teams = [
         imagePath: "https://autonoms-os-spaces.sfo3.cdn.digitaloceanspaces.com/ai-team-avatars/Raven.png",
         status: "idle",
         description:
-          "Generates daily pipeline reports covering funnel metrics, conversion rates, and activity-to-meeting ratios. Identifies bottlenecks, forecasts revenue, and produces weekly summaries so the team always knows where they stand.",
+          "Produces daily/weekly pipeline reports, highlights bottlenecks, and keeps the team aligned on forecasts.",
         tools: ["hubspot", "gmail"],
       },
     ],
   },
 ];
 
-const CARD_W = 300;
-const GAP = 16;
+const CARD_W = 240;
+const GAP = 24;
 const STEP = CARD_W + GAP;
 
 function AgentCard({
@@ -183,14 +184,14 @@ function AgentCard({
   return (
     <div className="flex flex-col gap-3 cursor-default group" style={{ width: CARD_W, flexShrink: 0 }}>
       {/* Portrait photo */}
-      <div className="relative rounded-2xl overflow-hidden bg-surface border border-line aspect-[3/4] w-full">
+      <div className="relative rounded-2xl overflow-hidden bg-surface border border-line aspect-3/4 w-full">
         <img
           src={agent.imagePath}
           alt={agent.name}
           className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
         />
         <span className="absolute top-3 right-3 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-page/80 backdrop-blur-sm border border-line text-xs font-medium">
-          <span className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${agent.status === "active" ? "bg-success animate-pulse-dot" : "bg-t4"}`} />
+          <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${agent.status === "active" ? "bg-success animate-pulse-dot" : "bg-t4"}`} />
           <span className={agent.status === "active" ? "text-success" : "text-t4"}>
             {agent.status === "active" ? "Active" : "Idle"}
           </span>
@@ -272,7 +273,7 @@ function AgentsCarousel({ team }: { team: typeof teams[0] }) {
       onMouseLeave={() => { hovered.current = false; }}
     >
       {/* Left gradient overlay + button */}
-      <div className="absolute left-0 top-0 bottom-0 w-32 z-10 bg-gradient-to-r from-page to-transparent pointer-events-none" />
+      <div className="absolute left-0 top-0 bottom-0 w-32 z-10 bg-linear-to-r from-subtle to-transparent pointer-events-none" />
       <button
         onClick={goPrev}
         className="absolute left-5 top-[30%] -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-surface/90 border border-line flex items-center justify-center hover:border-line-strong hover:bg-overlay transition-all duration-200"
@@ -281,7 +282,7 @@ function AgentsCarousel({ team }: { team: typeof teams[0] }) {
       </button>
 
       {/* Right gradient overlay + button */}
-      <div className="absolute right-0 top-0 bottom-0 w-32 z-10 bg-gradient-to-l from-page to-transparent pointer-events-none" />
+      <div className="absolute right-0 top-0 bottom-0 w-32 z-10 bg-linear-to-l from-subtle to-transparent pointer-events-none" />
       <button
         onClick={goNext}
         className="absolute right-5 top-[30%] -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-surface/90 border border-line flex items-center justify-center hover:border-line-strong hover:bg-overlay transition-all duration-200"
@@ -290,7 +291,7 @@ function AgentsCarousel({ team }: { team: typeof teams[0] }) {
       </button>
 
       {/* Track */}
-      <div className="overflow-hidden px-6 md:px-10">
+      <div className="overflow-hidden px-2 md:px-4">
         <div
           style={{
             display: "flex",
@@ -315,9 +316,8 @@ export function AgentPersonas() {
   const team = teams[activeTab];
 
   return (
-    <section className="w-full py-20 md:py-28">
-      {/* Constrained heading + tabs */}
-      <div className="px-6 md:px-10 mx-auto mb-10" style={{ maxWidth: "var(--width-site)" }}>
+    <SectionWrapper id="agents">
+      <div className="rounded-3xl border border-line bg-subtle shadow-card-hover px-5 py-10 md:px-10 md:py-14 overflow-hidden">
         <motion.div
           variants={staggerContainer}
           initial="hidden"
@@ -342,7 +342,7 @@ export function AgentPersonas() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={viewportOnce}
           transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-          className="flex justify-center"
+          className="flex justify-center mb-10"
         >
           <div className="flex items-center gap-2 p-1 rounded-full bg-surface border border-line">
             {teams.map((t, i) => (
@@ -363,20 +363,20 @@ export function AgentPersonas() {
             ))}
           </div>
         </motion.div>
-      </div>
 
-      {/* Carousel */}
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={activeTab}
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -8 }}
-          transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-        >
-          <AgentsCarousel team={team} />
-        </motion.div>
-      </AnimatePresence>
-    </section>
+        {/* Carousel */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeTab}
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <AgentsCarousel team={team} />
+          </motion.div>
+        </AnimatePresence>
+      </div>
+    </SectionWrapper>
   );
 }

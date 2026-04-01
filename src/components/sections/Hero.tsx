@@ -10,10 +10,36 @@ const LINE_ONE = ["Your", "AI", "team", "that"];
 const LINE_TWO = ["never", "stops", "working."];
 
 const tabs = [
-  { id: "workspace-overview", label: "Workspace Overview", image: "/hero-section/workspace.png", video: "https://res.cloudinary.com/vello/video/upload/v1774942268/Work_Overview_Comp_3_nyhito.mp4" },
-  { id: "data-hub", label: "Data Hub", image: "/hero-section/data-tables.png", video: null },
-  { id: "direct-messaging", label: "Direct Messaging", image: "/hero-section/message.png", video: null },
-  { id: "ai-team", label: "AI Team", image: "/hero-section/teams.png", video: null },
+  {
+    id: "dashboard",
+    label: "Dashboard",
+    image: "/hero-section/dashboard.png",
+    video: "https://ai-employee-bucket.s3.us-east-1.amazonaws.com/Dashboard+comp.mp4",
+  },
+  {
+    id: "workspace-overview",
+    label: "Workspace Overview",
+    image: "/hero-section/workspace.png",
+    video: "https://ai-employee-bucket.s3.us-east-1.amazonaws.com/Work+Overview+Comp.mp4",
+  },
+  {
+    id: "data-hub",
+    label: "Data Hub",
+    image: "/hero-section/data-tables.png",
+    video: "https://ai-employee-bucket.s3.us-east-1.amazonaws.com/Data+Hub+comp.mp4",
+  },
+  {
+    id: "direct-messaging",
+    label: "Direct Messaging",
+    image: "/hero-section/message.png",
+    video: "https://ai-employee-bucket.s3.us-east-1.amazonaws.com/Inbox+Comp.mp4",
+  },
+  {
+    id: "ai-team",
+    label: "AI Team",
+    image: "/hero-section/teams.png",
+    video: "https://ai-employee-bucket.s3.us-east-1.amazonaws.com/Teams+Comp.mp4",
+  },
 ];
 
 function BrowserMockup({
@@ -23,6 +49,8 @@ function BrowserMockup({
   activeTab: string;
   videoRef: React.RefObject<HTMLVideoElement | null>;
 }) {
+  const active = tabs.find((t) => t.id === activeTab) ?? tabs[0];
+
   return (
     <div className="relative rounded-xl border border-line overflow-hidden shadow-[0_0_80px_rgba(74,143,224,0.1)] bg-page mb-6">
       {/* Chrome bar */}
@@ -34,29 +62,25 @@ function BrowserMockup({
       </div>
       {/* Screen area */}
       <div className="relative aspect-video overflow-hidden bg-page">
-        {/* Video — workspace overview */}
         <video
           ref={videoRef}
-          src="https://res.cloudinary.com/vello/video/upload/v1774942268/Work_Overview_Comp_3_nyhito.mp4"
+          key={active.id}
+          src={active.video ?? undefined}
           muted
           playsInline
+          preload="metadata"
           className={cn(
-            "absolute inset-0 w-full h-full object-cover object-top transition-opacity duration-500",
-            activeTab === "workspace-overview" ? "opacity-100" : "opacity-0"
+            "absolute inset-0 w-full h-full object-cover object-top"
           )}
         />
-        {/* Images — all other tabs */}
-        {tabs.filter((t) => !t.video).map((t) => (
+        {/* Image fallback (if any tab has no video) */}
+        {!active.video && (
           <img
-            key={t.id}
-            src={t.image}
-            alt={t.label}
-            className={cn(
-              "absolute inset-0 w-full h-full object-cover object-top transition-opacity duration-500",
-              t.id === activeTab ? "opacity-100" : "opacity-0"
-            )}
+            src={active.image}
+            alt={active.label}
+            className="absolute inset-0 w-full h-full object-cover object-top"
           />
-        ))}
+        )}
       </div>
     </div>
   );
@@ -79,7 +103,7 @@ export function Hero() {
     if (intervalRef.current) clearInterval(intervalRef.current);
 
     const video = videoRef.current;
-    const isVideoTab = tabId === "workspace-overview";
+    const isVideoTab = !!tabs.find((t) => t.id === tabId)?.video;
 
     const run = (durationMs: number) => {
       const step = 100 / (durationMs / 50);

@@ -24,11 +24,11 @@ export default function HomePage() {
         <LogoBar />
         <Metrics />
         <Features />
+        <InboxCallout />
         <AgentPersonas />
         <TeamBuilder />
         <Testimonials />
         <UseCases />
-        <InboxCallout />
         <Integrations />
         <Benefits />
 

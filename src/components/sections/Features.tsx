@@ -44,43 +44,48 @@ export function Features() {
   return (
     <SectionWrapper id="features" className="py-20 md:py-32">
       <div className="flex flex-col gap-24 md:gap-36">
-        {features.map((feature, i) => (
-          <div
-            key={i}
-            className="grid grid-cols-1 md:grid-cols-[1fr_1.2fr] gap-12 md:gap-16 items-center"
-          >
-            {/* Text side */}
-            <motion.div
-              variants={slideFromLeft}
-              initial="hidden"
-              whileInView="visible"
-              viewport={viewportOnce}
-              className="flex flex-col gap-5 max-w-sm"
-            >
-              <h2 className="text-[1.75rem] md:text-[2rem] font-semibold text-t1 leading-tight">
-                {feature.headline}
-              </h2>
-              <p className="text-t2 text-lg leading-relaxed">{feature.body}</p>
-            </motion.div>
+        {features.map((feature, i) => {
+          const isEven = i % 2 === 0; // 0-based: even = text left, odd = text right
 
-            {/* Image side */}
-            <motion.div
-              variants={slideFromRight}
-              initial="hidden"
-              whileInView="visible"
-              viewport={viewportOnce}
-              className="self-start"
+          return (
+            <div
+              key={i}
+              className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center"
             >
-              <motion.div variants={screenshotEntry}>
-                <img
-                  src={feature.image}
-                  alt={typeof feature.headline === "string" ? feature.headline : ""}
-                  className="w-full rounded-2xl border border-line shadow-[0_2px_40px_rgba(74,143,224,0.08)]"
-                />
+              {/* Text side */}
+              <motion.div
+                variants={isEven ? slideFromLeft : slideFromRight}
+                initial="hidden"
+                whileInView="visible"
+                viewport={viewportOnce}
+                className={`flex flex-col gap-5 max-w-sm ${isEven ? "" : "md:order-2 md:justify-self-end"
+                  }`}
+              >
+                <h2 className="text-[1.75rem] md:text-[2rem] font-semibold text-t1 leading-tight">
+                  {feature.headline}
+                </h2>
+                <p className="text-t2 text-lg leading-relaxed">{feature.body}</p>
               </motion.div>
-            </motion.div>
-          </div>
-        ))}
+
+              {/* Image side */}
+              <motion.div
+                variants={isEven ? slideFromRight : slideFromLeft}
+                initial="hidden"
+                whileInView="visible"
+                viewport={viewportOnce}
+                className={`self-start ${isEven ? "" : "md:order-1"}`}
+              >
+                <motion.div variants={screenshotEntry}>
+                  <img
+                    src={feature.image}
+                    alt={typeof feature.headline === "string" ? feature.headline : ""}
+                    className="w-full rounded-2xl bg-surface border border-line shadow-[0_2px_40px_rgba(74,143,224,0.08)]"
+                  />
+                </motion.div>
+              </motion.div>
+            </div>
+          );
+        })}
       </div>
     </SectionWrapper>
   );
