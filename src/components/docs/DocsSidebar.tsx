@@ -23,10 +23,10 @@ export function DocsSidebar() {
                   key={item.href}
                   href={item.href}
                   className={cn(
-                    "text-sm rounded-lg px-2.5 py-2 transition-colors border border-transparent",
+                    "block w-full text-sm rounded-lg px-2.5 py-2 transition-colors border",
                     active
-                      ? "bg-accent-sub text-t1 border-accent/20"
-                      : "text-t2 hover:text-t1 hover:bg-hover"
+                      ? "bg-surface text-t1 border-line-strong"
+                      : "text-t2 border-transparent hover:text-t1 hover:bg-hover hover:border-line"
                   )}
                 >
                   {item.title}
