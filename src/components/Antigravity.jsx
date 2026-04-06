@@ -1,3 +1,6 @@
+/* eslint-disable react/no-unknown-property */
+"use client";
+
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { useMemo, useRef } from 'react';
 import * as THREE from 'three';
@@ -169,7 +172,11 @@ const AntigravityInner = ({
 
 const Antigravity = props => {
   return (
-    <Canvas camera={{ position: [0, 0, 50], fov: 35 }}>
+    <Canvas
+      camera={{ position: [0, 0, 50], fov: 35 }}
+      eventSource={typeof document !== 'undefined' ? document.body : undefined}
+      eventPrefix="client"
+    >
       <AntigravityInner {...props} />
     </Canvas>
   );

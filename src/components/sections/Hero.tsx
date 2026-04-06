@@ -167,7 +167,7 @@ export function Hero() {
       </div>
 
       {/* Antigravity background (behind hero text area) */}
-      <div className="absolute inset-x-0 top-0 h-[520px] md:h-[620px]">
+      <div className="absolute inset-x-0 top-0 h-[520px] md:h-[620px] pointer-events-none">
         <div className="absolute inset-0 opacity-30">
           <Antigravity
             count={300}
