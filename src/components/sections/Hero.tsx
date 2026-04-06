@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 import { wordStagger, staggerContainer } from "@/lib/animations";
-import Antigravity from "@/components/Antigravity";
+import Orb from "@/components/Orb";
 
 const LINE_ONE = ["Your", "AI", "team", "that"];
 const LINE_TWO = ["never", "stops", "working."];
@@ -166,25 +166,14 @@ export function Hero() {
         <div className="absolute top-[20%] left-[10%] w-[400px] h-[400px] rounded-full bg-purple/3 blur-[120px]" />
       </div>
 
-      {/* Antigravity background (behind hero text area) */}
+      {/* Orb background (behind hero text area) */}
       <div className="absolute inset-x-0 top-0 h-[520px] md:h-[620px] pointer-events-none">
-        <div className="absolute inset-0 opacity-30">
-          <Antigravity
-            count={300}
-            magnetRadius={14}
-            ringRadius={22}
-            waveSpeed={0.3}
-            waveAmplitude={1.3}
-            particleSize={2}
-            lerpSpeed={0.12}
-            color="#ffffff"
-            autoAnimate={false}
-            particleVariance={1.5}
-            rotationSpeed={0}
-            depthFactor={1}
-            pulseSpeed={3}
-            particleShape="sphere"
-            fieldStrength={15}
+        <div className="absolute inset-0 opacity-55">
+          <Orb
+            hue={60}
+            hoverIntensity={0.1}
+            rotateOnHover
+            forceHoverState={false}
           />
         </div>
         <div className="absolute inset-x-0 bottom-0 h-56 bg-linear-to-t from-page to-transparent" />
