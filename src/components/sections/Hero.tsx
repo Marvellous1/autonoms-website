@@ -208,7 +208,12 @@ export function Hero() {
                 custom={LINE_ONE.length + i}
                 variants={wordStagger}
                 className="inline-block mr-[0.2em] last:mr-0 bg-clip-text text-transparent"
-                style={{ backgroundImage: HERO_GRADIENT }}
+                style={{
+                  backgroundImage: HERO_GRADIENT,
+                  backgroundRepeat: "no-repeat",
+                  backgroundSize: "100% 100%",
+                  backgroundPosition: "center",
+                }}
               >
                 {word}
               </motion.span>
@@ -245,55 +250,54 @@ export function Hero() {
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 1.1, ease: [0.22, 1, 0.36, 1] }}
-        className="relative z-10 w-full px-6 md:px-10 pb-0"
-        style={{ maxWidth: "var(--width-site)", margin: "0 auto" }}
+        className="relative z-10 w-full pb-0"
       >
-
-        {/* Browser mockup + Threads background */}
-        <div className="relative">
-          <div className="pointer-events-none absolute -inset-6 sm:-inset-10">
-            <div className="absolute inset-0 opacity-60 blur-[0.5px]">
-              <Threads
-                color={[0.28627450980392155, 0.5607843137254902, 0.8784313725490196]}
-                amplitude={1}
-                distance={0.2}
-                enableMouseInteraction
-              />
-            </div>
+        {/* Full-bleed Threads background */}
+        <div className="pointer-events-none absolute inset-0">
+          <div className="absolute inset-0 opacity-60">
+            <Threads
+              color={[0.28627450980392155, 0.5607843137254902, 0.8784313725490196]}
+              amplitude={1}
+              distance={0.2}
+              enableMouseInteraction
+            />
           </div>
-
-          <div className="relative z-10">
-            <BrowserMockup activeTab={activeTab} videoRef={videoRef} />
-          </div>
+          <div className="absolute inset-x-0 bottom-0 h-40 bg-linear-to-t from-page to-transparent" />
         </div>
 
-        {/* Tab strip */}
-        <div className="flex justify-center mb-6">
-          <div className="flex items-center gap-2 p-1 rounded-full bg-surface border border-line">
-            {tabs.map((tab) => {
-              const isActive = tab.id === activeTab;
-              return (
-                <button
-                  key={tab.id}
-                  onClick={() => handleTabClick(tab.id)}
-                  className={cn(
-                    "relative flex flex-col items-center px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-200 overflow-hidden",
-                    isActive
-                      ? "bg-accent text-white"
-                      : "text-t3 hover:text-t2"
-                  )}
-                >
-                  <span className="relative z-10">{tab.label}</span>
-                  {/* Progress bar */}
-                  {isActive && (
-                    <span
-                      className="absolute bottom-0 left-0 h-0.5 bg-white/40 transition-none"
-                      style={{ width: `${progress}%` }}
-                    />
-                  )}
-                </button>
-              );
-            })}
+        {/* Constrained content on top */}
+        <div
+          className="relative z-10 w-full px-6 md:px-10"
+          style={{ maxWidth: "var(--width-site)", margin: "0 auto" }}
+        >
+          <BrowserMockup activeTab={activeTab} videoRef={videoRef} />
+
+          {/* Tab strip */}
+          <div className="flex justify-center mb-6">
+            <div className="flex items-center gap-2 p-1 rounded-full bg-surface border border-line">
+              {tabs.map((tab) => {
+                const isActive = tab.id === activeTab;
+                return (
+                  <button
+                    key={tab.id}
+                    onClick={() => handleTabClick(tab.id)}
+                    className={cn(
+                      "relative flex flex-col items-center px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-200 overflow-hidden",
+                      isActive ? "bg-accent text-white" : "text-t3 hover:text-t2"
+                    )}
+                  >
+                    <span className="relative z-10">{tab.label}</span>
+                    {/* Progress bar */}
+                    {isActive && (
+                      <span
+                        className="absolute bottom-0 left-0 h-0.5 bg-white/40 transition-none"
+                        style={{ width: `${progress}%` }}
+                      />
+                    )}
+                  </button>
+                );
+              })}
+            </div>
           </div>
         </div>
       </motion.div>
