@@ -167,8 +167,8 @@ export function Hero() {
       </div>
 
       {/* Orb background (behind hero text area) */}
-      <div className="absolute inset-x-0 top-8 md:top-10 h-[760px] md:h-[920px] pointer-events-none">
-        <div className="absolute left-1/2 -translate-x-1/2 w-[1400px] md:w-[2000px] h-full opacity-55">
+      <div className="absolute inset-x-0 top-8 md:top-10 h-[820px] md:h-[980px] pointer-events-none">
+        <div className="absolute left-1/2 -translate-x-1/2 w-[1550px] md:w-[2200px] h-full opacity-55">
           <Orb
             hue={60}
             hoverIntensity={0.1}
