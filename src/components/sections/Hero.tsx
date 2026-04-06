@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 import { wordStagger, staggerContainer } from "@/lib/animations";
-import Threads from "@/components/Threads";
+import Antigravity from "@/components/Antigravity";
 
 const LINE_ONE = ["Your", "AI", "team", "that"];
 const LINE_TWO = ["never", "stops", "working."];
@@ -166,6 +166,30 @@ export function Hero() {
         <div className="absolute top-[20%] left-[10%] w-[400px] h-[400px] rounded-full bg-purple/3 blur-[120px]" />
       </div>
 
+      {/* Antigravity background (behind hero text area) */}
+      <div className="absolute inset-x-0 top-0 h-[520px] md:h-[620px] pointer-events-none">
+        <div className="absolute inset-0 opacity-30">
+          <Antigravity
+            count={300}
+            magnetRadius={8}
+            ringRadius={12}
+            waveSpeed={0.3}
+            waveAmplitude={1.3}
+            particleSize={2}
+            lerpSpeed={0.12}
+            color="#ffffff"
+            autoAnimate={false}
+            particleVariance={1.5}
+            rotationSpeed={0}
+            depthFactor={1}
+            pulseSpeed={3}
+            particleShape="sphere"
+            fieldStrength={15}
+          />
+        </div>
+        <div className="absolute inset-x-0 bottom-0 h-56 bg-linear-to-t from-page to-transparent" />
+      </div>
+
       {/* Hero text */}
       <div className="relative z-10 flex flex-col items-center text-center px-6 md:px-10 pt-40 pb-10">
         <motion.div
@@ -201,19 +225,21 @@ export function Hero() {
             ))}
           </span>
           {/* Line 2 */}
-          <span className="block">
+          <span
+            className="block bg-clip-text text-transparent"
+            style={{
+              backgroundImage: HERO_GRADIENT,
+              backgroundRepeat: "no-repeat",
+              backgroundSize: "100% 100%",
+              backgroundPosition: "center",
+            }}
+          >
             {LINE_TWO.map((word, i) => (
               <motion.span
                 key={`l2-${i}`}
                 custom={LINE_ONE.length + i}
                 variants={wordStagger}
-                className="inline-block mr-[0.2em] last:mr-0 bg-clip-text text-transparent"
-                style={{
-                  backgroundImage: HERO_GRADIENT,
-                  backgroundRepeat: "no-repeat",
-                  backgroundSize: "100% 100%",
-                  backgroundPosition: "center",
-                }}
+                className="inline-block mr-[0.2em] last:mr-0"
               >
                 {word}
               </motion.span>
@@ -252,19 +278,6 @@ export function Hero() {
         transition={{ duration: 0.6, delay: 1.1, ease: [0.22, 1, 0.36, 1] }}
         className="relative z-10 w-full pb-0"
       >
-        {/* Full-bleed Threads background */}
-        <div className="pointer-events-none absolute inset-0">
-          <div className="absolute inset-0 opacity-60">
-            <Threads
-              color={[0.28627450980392155, 0.5607843137254902, 0.8784313725490196]}
-              amplitude={1}
-              distance={0.2}
-              enableMouseInteraction
-            />
-          </div>
-          <div className="absolute inset-x-0 bottom-0 h-40 bg-linear-to-t from-page to-transparent" />
-        </div>
-
         {/* Constrained content on top */}
         <div
           className="relative z-10 w-full px-6 md:px-10"
