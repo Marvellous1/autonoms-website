@@ -26,9 +26,9 @@ export default function HomePage() {
         <Features />
         <InboxCallout />
         <AgentPersonas />
+        <UseCases />
         <TeamBuilder />
         <Testimonials />
-        <UseCases />
         <Integrations />
         <Benefits />
 

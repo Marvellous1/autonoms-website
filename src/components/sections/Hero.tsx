@@ -5,9 +5,12 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 import { wordStagger, staggerContainer } from "@/lib/animations";
+import Threads from "@/components/Threads";
 
 const LINE_ONE = ["Your", "AI", "team", "that"];
 const LINE_TWO = ["never", "stops", "working."];
+
+const HERO_GRADIENT = "linear-gradient(135deg, rgb(54, 124, 255), rgb(49, 177, 160) 70%, rgb(46, 204, 113) 90%)";
 
 const tabs = [
   {
@@ -204,7 +207,8 @@ export function Hero() {
                 key={`l2-${i}`}
                 custom={LINE_ONE.length + i}
                 variants={wordStagger}
-                className="inline-block mr-[0.2em] last:mr-0"
+                className="inline-block mr-[0.2em] last:mr-0 bg-clip-text text-transparent"
+                style={{ backgroundImage: HERO_GRADIENT }}
               >
                 {word}
               </motion.span>
@@ -245,8 +249,23 @@ export function Hero() {
         style={{ maxWidth: "var(--width-site)", margin: "0 auto" }}
       >
 
-        {/* Browser mockup */}
-        <BrowserMockup activeTab={activeTab} videoRef={videoRef} />
+        {/* Browser mockup + Threads background */}
+        <div className="relative">
+          <div className="pointer-events-none absolute -inset-6 sm:-inset-10">
+            <div className="absolute inset-0 opacity-60 blur-[0.5px]">
+              <Threads
+                color={[0.28627450980392155, 0.5607843137254902, 0.8784313725490196]}
+                amplitude={1}
+                distance={0.2}
+                enableMouseInteraction
+              />
+            </div>
+          </div>
+
+          <div className="relative z-10">
+            <BrowserMockup activeTab={activeTab} videoRef={videoRef} />
+          </div>
+        </div>
 
         {/* Tab strip */}
         <div className="flex justify-center mb-6">
