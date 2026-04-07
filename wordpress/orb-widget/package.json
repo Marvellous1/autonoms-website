@@ -1,0 +1,17 @@
+{
+  "name": "autonoms-orb-widget",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "dependencies": {
+    "ogl": "^1.0.11"
+  },
+  "devDependencies": {
+    "vite": "^7.1.3"
+  }
+}
+
